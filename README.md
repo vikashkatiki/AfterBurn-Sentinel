@@ -8,7 +8,7 @@ The project brings together machine learning, maps and SHAP explanations in an i
 
 ## 🚀 Live Demo
 
-**[Launch AfterBurn Sentinel – Live Application](https://afterburn-sentinel.streamlit.app/)**
+**[Launch AfterBurn Sentinel – Live Application](https://afterburn-sentinal.streamlit.app/)**
 
 **[View Source Code on GitHub](https://github.com/vikashkatiki/AfterBurn-Sentinel)**
 
