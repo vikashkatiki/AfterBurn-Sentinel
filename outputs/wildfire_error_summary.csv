@@ -1,0 +1,12 @@
+FireName,Total_Observations,False_Positives,False_Negatives,True_Positives,True_Negatives,Total_Errors,Error_Rate
+Bear,1,0,0,1,0,0,0.0
+Bond,9,0,4,5,0,4,0.4444444444444444
+Boot,3,0,1,1,1,1,0.3333333333333333
+Cameron Peak,31,4,16,5,6,20,0.6451612903225806
+El Dorado,24,6,6,9,3,12,0.5
+Grand Prix - Old,78,12,7,53,6,19,0.24358974358974358
+Grizzly Creek,2450,248,16,34,2152,264,0.10775510204081633
+Pipeline,1,0,0,1,0,0,0.0
+River,8,1,1,6,0,2,0.25
+Schultz,109,31,0,30,48,31,0.28440366972477066
+Woodbury,26,4,0,22,0,4,0.15384615384615385

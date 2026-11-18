@@ -1,0 +1,20 @@
+{
+    "model_name": "Logistic Regression - Reduced Features",
+    "threshold": 0.47,
+    "features": [
+        "StormAccumulation",
+        "StormDuration",
+        "PeakI60",
+        "RainfallRatio60",
+        "HM23",
+        "dNBR/1000",
+        "KF",
+        "UpstreamArea",
+        "DaysSinceFire",
+        "YearAfterFire"
+    ],
+    "target": "Response",
+    "positive_class": 1,
+    "training_observations": 6241,
+    "training_wildfire_groups": 69
+}

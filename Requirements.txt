@@ -1,0 +1,15 @@
+# AfterBurn Sentinel - Python dependencies
+# Install with: python -m pip install -r requirements.txt
+
+streamlit
+streamlit-folium
+pandas
+numpy
+scikit-learn
+joblib
+shap
+folium
+matplotlib
+seaborn
+scipy
+jupyter

@@ -1,0 +1,3 @@
+Case,FireName,Actual_Response,Predicted_Response,Predicted_Probability
+True Positive,Grizzly Creek,1,1,0.9994553969920031
+False Negative,Cameron Peak,1,0,0.059172174659916386

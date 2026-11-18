@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c94dfe27feb5cc188b8bd28d068dc8f2 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c94dfe27feb5cc188b8bd28d068dc8f2" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c94dfe27feb5cc188b8bd28d068dc8f2 = L.map(
+                "map_c94dfe27feb5cc188b8bd28d068dc8f2",
+                {
+                    center: [39.599788, -107.171554],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_f0ec43b3a76259c816c692f9aafaef1f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_f0ec43b3a76259c816c692f9aafaef1f.addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+            var circle_marker_d04c32db3cacbea934aba0a0e80779d5 = L.circleMarker(
+                [33.746243, -117.626928],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_51215461d594a96dc4300eb63109e21f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6256f8afb852a8a9709599a555d31efc = $(`<div id="html_6256f8afb852a8a9709599a555d31efc" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Bond<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> Bond_2020_0004<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2744     </div>`)[0];
+                popup_51215461d594a96dc4300eb63109e21f.setContent(html_6256f8afb852a8a9709599a555d31efc);
+            
+        
+
+        circle_marker_d04c32db3cacbea934aba0a0e80779d5.bindPopup(popup_51215461d594a96dc4300eb63109e21f)
+        ;
+
+        
+    
+    
+            circle_marker_d04c32db3cacbea934aba0a0e80779d5.bindTooltip(
+                `<div>
+                     Missed debris flow: Bond
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d6063365db62181fe2e2f18364662f1b = L.circleMarker(
+                [33.745468, -117.635888],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_b65178670ec5e13f8970e9c5538a4e0f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dc42167e5241c31f063ebd5f02f5ab50 = $(`<div id="html_dc42167e5241c31f063ebd5f02f5ab50" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Bond<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> Bond_2020_0005<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2525     </div>`)[0];
+                popup_b65178670ec5e13f8970e9c5538a4e0f.setContent(html_dc42167e5241c31f063ebd5f02f5ab50);
+            
+        
+
+        circle_marker_d6063365db62181fe2e2f18364662f1b.bindPopup(popup_b65178670ec5e13f8970e9c5538a4e0f)
+        ;
+
+        
+    
+    
+            circle_marker_d6063365db62181fe2e2f18364662f1b.bindTooltip(
+                `<div>
+                     Missed debris flow: Bond
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_daf624e88389f90885c7c70beb6db6ce = L.circleMarker(
+                [33.729686, -117.646143],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_8d43dbcbf91a8c36de155812f00af794 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b075c86743ef7a26cb1bc522c4778d87 = $(`<div id="html_b075c86743ef7a26cb1bc522c4778d87" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Bond<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> Bond_2020_0008<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3773     </div>`)[0];
+                popup_8d43dbcbf91a8c36de155812f00af794.setContent(html_b075c86743ef7a26cb1bc522c4778d87);
+            
+        
+
+        circle_marker_daf624e88389f90885c7c70beb6db6ce.bindPopup(popup_8d43dbcbf91a8c36de155812f00af794)
+        ;
+
+        
+    
+    
+            circle_marker_daf624e88389f90885c7c70beb6db6ce.bindTooltip(
+                `<div>
+                     Missed debris flow: Bond
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_39010f036af3424d31660251a00d6d55 = L.circleMarker(
+                [33.729686, -117.646143],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_0545d703f999ebcb6e6e8fc3b1057e59 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e19dff722e1a906b9dc9737e71e5ef3 = $(`<div id="html_9e19dff722e1a906b9dc9737e71e5ef3" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Bond<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> Bond_2020_0009<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4230     </div>`)[0];
+                popup_0545d703f999ebcb6e6e8fc3b1057e59.setContent(html_9e19dff722e1a906b9dc9737e71e5ef3);
+            
+        
+
+        circle_marker_39010f036af3424d31660251a00d6d55.bindPopup(popup_0545d703f999ebcb6e6e8fc3b1057e59)
+        ;
+
+        
+    
+    
+            circle_marker_39010f036af3424d31660251a00d6d55.bindTooltip(
+                `<div>
+                     Missed debris flow: Bond
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c314e64610391778b722457ab7c13415 = L.circleMarker(
+                [38.406616, -119.453853],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_c6669bf0c100d8ce43cf2b29f5fab5dc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f1ea0bcdd61c215fd95c979b3304a24 = $(`<div id="html_5f1ea0bcdd61c215fd95c979b3304a24" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Boot<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> Boot_2018_0001<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3624     </div>`)[0];
+                popup_c6669bf0c100d8ce43cf2b29f5fab5dc.setContent(html_5f1ea0bcdd61c215fd95c979b3304a24);
+            
+        
+
+        circle_marker_c314e64610391778b722457ab7c13415.bindPopup(popup_c6669bf0c100d8ce43cf2b29f5fab5dc)
+        ;
+
+        
+    
+    
+            circle_marker_c314e64610391778b722457ab7c13415.bindTooltip(
+                `<div>
+                     Missed debris flow: Boot
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_db7fa8e0bb0099ff0a2eae45a57cab6a = L.circleMarker(
+                [40.7235791, -105.7496517],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_a3cddcc173c5eaad3da27f4c0774d32f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8bfa24114a6d235ef1e2ff5e3b7ead4 = $(`<div id="html_e8bfa24114a6d235ef1e2ff5e3b7ead4" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0001<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0922     </div>`)[0];
+                popup_a3cddcc173c5eaad3da27f4c0774d32f.setContent(html_e8bfa24114a6d235ef1e2ff5e3b7ead4);
+            
+        
+
+        circle_marker_db7fa8e0bb0099ff0a2eae45a57cab6a.bindPopup(popup_a3cddcc173c5eaad3da27f4c0774d32f)
+        ;
+
+        
+    
+    
+            circle_marker_db7fa8e0bb0099ff0a2eae45a57cab6a.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24700a565bcb18f93fa437109ba06a4c = L.circleMarker(
+                [40.7126002, -105.746917],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_868be12e48e2a1d37f2f0b146711bae6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dede74a14885913821924d7699dfca23 = $(`<div id="html_dede74a14885913821924d7699dfca23" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0002<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1502     </div>`)[0];
+                popup_868be12e48e2a1d37f2f0b146711bae6.setContent(html_dede74a14885913821924d7699dfca23);
+            
+        
+
+        circle_marker_24700a565bcb18f93fa437109ba06a4c.bindPopup(popup_868be12e48e2a1d37f2f0b146711bae6)
+        ;
+
+        
+    
+    
+            circle_marker_24700a565bcb18f93fa437109ba06a4c.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1b079bd935ead8e780c69ee68a9119f9 = L.circleMarker(
+                [40.707789, -105.757512],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_4c537e2f5cdd32420775876709f790fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9259a5bec88e09142ee79520efc8ec5b = $(`<div id="html_9259a5bec88e09142ee79520efc8ec5b" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0004<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1250     </div>`)[0];
+                popup_4c537e2f5cdd32420775876709f790fc.setContent(html_9259a5bec88e09142ee79520efc8ec5b);
+            
+        
+
+        circle_marker_1b079bd935ead8e780c69ee68a9119f9.bindPopup(popup_4c537e2f5cdd32420775876709f790fc)
+        ;
+
+        
+    
+    
+            circle_marker_1b079bd935ead8e780c69ee68a9119f9.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_884325aa1da82cabd799855c9e6aaac7 = L.circleMarker(
+                [40.6914729, -105.6820581],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_c8779d65b631153a55d2eb8ea84d6894 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_149b619f372a57d7d67c82192dc8e3a8 = $(`<div id="html_149b619f372a57d7d67c82192dc8e3a8" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0014<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3447     </div>`)[0];
+                popup_c8779d65b631153a55d2eb8ea84d6894.setContent(html_149b619f372a57d7d67c82192dc8e3a8);
+            
+        
+
+        circle_marker_884325aa1da82cabd799855c9e6aaac7.bindPopup(popup_c8779d65b631153a55d2eb8ea84d6894)
+        ;
+
+        
+    
+    
+            circle_marker_884325aa1da82cabd799855c9e6aaac7.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eb65fcc19138ac3c35eac7d0e301bcef = L.circleMarker(
+                [40.63752, -105.60952],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_bdd515f9c5a09d337736da42eef5f4d3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cbf4fb1cde72b6e77d0be327ffaa56e9 = $(`<div id="html_cbf4fb1cde72b6e77d0be327ffaa56e9" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0018<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2275     </div>`)[0];
+                popup_bdd515f9c5a09d337736da42eef5f4d3.setContent(html_cbf4fb1cde72b6e77d0be327ffaa56e9);
+            
+        
+
+        circle_marker_eb65fcc19138ac3c35eac7d0e301bcef.bindPopup(popup_bdd515f9c5a09d337736da42eef5f4d3)
+        ;
+
+        
+    
+    
+            circle_marker_eb65fcc19138ac3c35eac7d0e301bcef.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4c0fe8630f465c16dca8102df057be41 = L.circleMarker(
+                [40.63173, -105.60215],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_1649cec796227437b9057c25e5b0ed33 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_04886074b96cbb5cf232866d9033e98f = $(`<div id="html_04886074b96cbb5cf232866d9033e98f" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0020<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3154     </div>`)[0];
+                popup_1649cec796227437b9057c25e5b0ed33.setContent(html_04886074b96cbb5cf232866d9033e98f);
+            
+        
+
+        circle_marker_4c0fe8630f465c16dca8102df057be41.bindPopup(popup_1649cec796227437b9057c25e5b0ed33)
+        ;
+
+        
+    
+    
+            circle_marker_4c0fe8630f465c16dca8102df057be41.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e391aec8bd96d2bf0eb1513f3e583af3 = L.circleMarker(
+                [40.62392, -105.56571],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_6c57d01ec4aa8212ea37c29735f853c2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_392132336901978d0d51142081b9f84f = $(`<div id="html_392132336901978d0d51142081b9f84f" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0021<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2477     </div>`)[0];
+                popup_6c57d01ec4aa8212ea37c29735f853c2.setContent(html_392132336901978d0d51142081b9f84f);
+            
+        
+
+        circle_marker_e391aec8bd96d2bf0eb1513f3e583af3.bindPopup(popup_6c57d01ec4aa8212ea37c29735f853c2)
+        ;
+
+        
+    
+    
+            circle_marker_e391aec8bd96d2bf0eb1513f3e583af3.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec9559d821c0098fa685fea27790d1b0 = L.circleMarker(
+                [40.62276, -105.57901],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_f289e7337acd5ec235b72f0c8065a3db = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_55bae1b7533b9dc7aebb9520588be4eb = $(`<div id="html_55bae1b7533b9dc7aebb9520588be4eb" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0022<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3403     </div>`)[0];
+                popup_f289e7337acd5ec235b72f0c8065a3db.setContent(html_55bae1b7533b9dc7aebb9520588be4eb);
+            
+        
+
+        circle_marker_ec9559d821c0098fa685fea27790d1b0.bindPopup(popup_f289e7337acd5ec235b72f0c8065a3db)
+        ;
+
+        
+    
+    
+            circle_marker_ec9559d821c0098fa685fea27790d1b0.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7ea4203a18a1a235b6d140be1dd2f784 = L.circleMarker(
+                [40.62207, -105.57508],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_82e880ef77267ebc93259043aa482d5c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f493f2ac3739ae8feb374777a28b215 = $(`<div id="html_5f493f2ac3739ae8feb374777a28b215" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0023<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2927     </div>`)[0];
+                popup_82e880ef77267ebc93259043aa482d5c.setContent(html_5f493f2ac3739ae8feb374777a28b215);
+            
+        
+
+        circle_marker_7ea4203a18a1a235b6d140be1dd2f784.bindPopup(popup_82e880ef77267ebc93259043aa482d5c)
+        ;
+
+        
+    
+    
+            circle_marker_7ea4203a18a1a235b6d140be1dd2f784.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b94c0b8e484f176ea52e17b4aaa90d4a = L.circleMarker(
+                [40.7401849, -105.7691609],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_94c8fc9805f261a81a0f52f6b647a07e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5c954c8c7b2171c4fa3fcd810a00b750 = $(`<div id="html_5c954c8c7b2171c4fa3fcd810a00b750" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0024<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0618     </div>`)[0];
+                popup_94c8fc9805f261a81a0f52f6b647a07e.setContent(html_5c954c8c7b2171c4fa3fcd810a00b750);
+            
+        
+
+        circle_marker_b94c0b8e484f176ea52e17b4aaa90d4a.bindPopup(popup_94c8fc9805f261a81a0f52f6b647a07e)
+        ;
+
+        
+    
+    
+            circle_marker_b94c0b8e484f176ea52e17b4aaa90d4a.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9dc4ae5130c618eda7997b377f146fdd = L.circleMarker(
+                [40.7383947, -105.7686185],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_477f0bdfcfa26b5d513da3b5806c01eb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f5e9923b437a53ac06e4f614cedc5682 = $(`<div id="html_f5e9923b437a53ac06e4f614cedc5682" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0025<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0907     </div>`)[0];
+                popup_477f0bdfcfa26b5d513da3b5806c01eb.setContent(html_f5e9923b437a53ac06e4f614cedc5682);
+            
+        
+
+        circle_marker_9dc4ae5130c618eda7997b377f146fdd.bindPopup(popup_477f0bdfcfa26b5d513da3b5806c01eb)
+        ;
+
+        
+    
+    
+            circle_marker_9dc4ae5130c618eda7997b377f146fdd.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_78716ee0eb5ac59eb575886dceb2511f = L.circleMarker(
+                [40.7376903, -105.7678985],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_098c4164bfa7976d974a5ba458818f0d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6df76fdf516da4373db3149ff265e75f = $(`<div id="html_6df76fdf516da4373db3149ff265e75f" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0026<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0592     </div>`)[0];
+                popup_098c4164bfa7976d974a5ba458818f0d.setContent(html_6df76fdf516da4373db3149ff265e75f);
+            
+        
+
+        circle_marker_78716ee0eb5ac59eb575886dceb2511f.bindPopup(popup_098c4164bfa7976d974a5ba458818f0d)
+        ;
+
+        
+    
+    
+            circle_marker_78716ee0eb5ac59eb575886dceb2511f.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_21bd4eedbec32b48dbaec95561521255 = L.circleMarker(
+                [40.5457304, -105.4208126],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_3a2bbc3c34d840af2988913bc277a052 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ca0c859884612722a427d3b890a3a8bf = $(`<div id="html_ca0c859884612722a427d3b890a3a8bf" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0027<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2894     </div>`)[0];
+                popup_3a2bbc3c34d840af2988913bc277a052.setContent(html_ca0c859884612722a427d3b890a3a8bf);
+            
+        
+
+        circle_marker_21bd4eedbec32b48dbaec95561521255.bindPopup(popup_3a2bbc3c34d840af2988913bc277a052)
+        ;
+
+        
+    
+    
+            circle_marker_21bd4eedbec32b48dbaec95561521255.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9e0107ce635d5c7e88e22a44721578e = L.circleMarker(
+                [40.5454256, -105.4180111],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_0bccf5a67dedf13bbcaf56033254bf68 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14350b0e038bebe086edef911bebec45 = $(`<div id="html_14350b0e038bebe086edef911bebec45" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0028<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3779     </div>`)[0];
+                popup_0bccf5a67dedf13bbcaf56033254bf68.setContent(html_14350b0e038bebe086edef911bebec45);
+            
+        
+
+        circle_marker_d9e0107ce635d5c7e88e22a44721578e.bindPopup(popup_0bccf5a67dedf13bbcaf56033254bf68)
+        ;
+
+        
+    
+    
+            circle_marker_d9e0107ce635d5c7e88e22a44721578e.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_873d140d1d879d17ce888633c7a77dab = L.circleMarker(
+                [40.7332308, -105.7619115],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_612cf7e7a215618eac614fe1e89fba9a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6001fecb2eafc5d309306bcecc823af = $(`<div id="html_d6001fecb2eafc5d309306bcecc823af" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0030<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0817     </div>`)[0];
+                popup_612cf7e7a215618eac614fe1e89fba9a.setContent(html_d6001fecb2eafc5d309306bcecc823af);
+            
+        
+
+        circle_marker_873d140d1d879d17ce888633c7a77dab.bindPopup(popup_612cf7e7a215618eac614fe1e89fba9a)
+        ;
+
+        
+    
+    
+            circle_marker_873d140d1d879d17ce888633c7a77dab.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1877bdc994a0138eb13c4277fd5ccdae = L.circleMarker(
+                [40.693532, -105.613394],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_0e907a35affef4e61435ae18ceeb4da9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c275b8b32469e5a6ba6fa58c8acaefe0 = $(`<div id="html_c275b8b32469e5a6ba6fa58c8acaefe0" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Cameron Peak<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> CameronPeak_2020_0031<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3663     </div>`)[0];
+                popup_0e907a35affef4e61435ae18ceeb4da9.setContent(html_c275b8b32469e5a6ba6fa58c8acaefe0);
+            
+        
+
+        circle_marker_1877bdc994a0138eb13c4277fd5ccdae.bindPopup(popup_0e907a35affef4e61435ae18ceeb4da9)
+        ;
+
+        
+    
+    
+            circle_marker_1877bdc994a0138eb13c4277fd5ccdae.bindTooltip(
+                `<div>
+                     Missed debris flow: Cameron Peak
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_591ff4c8c1c3de4a636a1b8942cece20 = L.circleMarker(
+                [34.159226, -116.917568],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_5b74ca3d8ab7211334f2ccfbd25bb790 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eeaa4941959039c68fd9deddf3820a96 = $(`<div id="html_eeaa4941959039c68fd9deddf3820a96" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0003<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4058     </div>`)[0];
+                popup_5b74ca3d8ab7211334f2ccfbd25bb790.setContent(html_eeaa4941959039c68fd9deddf3820a96);
+            
+        
+
+        circle_marker_591ff4c8c1c3de4a636a1b8942cece20.bindPopup(popup_5b74ca3d8ab7211334f2ccfbd25bb790)
+        ;
+
+        
+    
+    
+            circle_marker_591ff4c8c1c3de4a636a1b8942cece20.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5a31c8ad430183716a4181ff722c2e24 = L.circleMarker(
+                [34.160073, -116.916788],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_5ff72e3bf666090dba88fe070966d120 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_043fc5be3363bd216356da99b59a8ad7 = $(`<div id="html_043fc5be3363bd216356da99b59a8ad7" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0005<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4027     </div>`)[0];
+                popup_5ff72e3bf666090dba88fe070966d120.setContent(html_043fc5be3363bd216356da99b59a8ad7);
+            
+        
+
+        circle_marker_5a31c8ad430183716a4181ff722c2e24.bindPopup(popup_5ff72e3bf666090dba88fe070966d120)
+        ;
+
+        
+    
+    
+            circle_marker_5a31c8ad430183716a4181ff722c2e24.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0bcfd0b8619be5d56749fb62653ce181 = L.circleMarker(
+                [34.157547, -116.926028],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_0757bf07a47bedde180deacf710ebc04 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3756f7fad8585c90013f36abb3c66af0 = $(`<div id="html_3756f7fad8585c90013f36abb3c66af0" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0010<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4100     </div>`)[0];
+                popup_0757bf07a47bedde180deacf710ebc04.setContent(html_3756f7fad8585c90013f36abb3c66af0);
+            
+        
+
+        circle_marker_0bcfd0b8619be5d56749fb62653ce181.bindPopup(popup_0757bf07a47bedde180deacf710ebc04)
+        ;
+
+        
+    
+    
+            circle_marker_0bcfd0b8619be5d56749fb62653ce181.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d91a3cb279f91b1a09c8bd4373283d47 = L.circleMarker(
+                [34.084032, -116.925254],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_d0429bef7249066e415dc2d267110dc9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f88aafb5ff3c39b1c7cb892eaa54437d = $(`<div id="html_f88aafb5ff3c39b1c7cb892eaa54437d" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0012<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2538     </div>`)[0];
+                popup_d0429bef7249066e415dc2d267110dc9.setContent(html_f88aafb5ff3c39b1c7cb892eaa54437d);
+            
+        
+
+        circle_marker_d91a3cb279f91b1a09c8bd4373283d47.bindPopup(popup_d0429bef7249066e415dc2d267110dc9)
+        ;
+
+        
+    
+    
+            circle_marker_d91a3cb279f91b1a09c8bd4373283d47.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ad9ceb4b5d255cd4f01f298ed0b3f6a = L.circleMarker(
+                [34.086355, -116.913565],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_48acde1ab04a94ee0b486d53f5b7650c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fef8a6d578d2b7607ab4f9252ce58426 = $(`<div id="html_fef8a6d578d2b7607ab4f9252ce58426" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0014<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1459     </div>`)[0];
+                popup_48acde1ab04a94ee0b486d53f5b7650c.setContent(html_fef8a6d578d2b7607ab4f9252ce58426);
+            
+        
+
+        circle_marker_2ad9ceb4b5d255cd4f01f298ed0b3f6a.bindPopup(popup_48acde1ab04a94ee0b486d53f5b7650c)
+        ;
+
+        
+    
+    
+            circle_marker_2ad9ceb4b5d255cd4f01f298ed0b3f6a.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_53be4918d3864542beb14eafb3e08b56 = L.circleMarker(
+                [34.050564, -116.943455],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_1cfd678be13b769124625e8fb8f59870 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9f78eaa0475e401d94f45075d75a1a6d = $(`<div id="html_9f78eaa0475e401d94f45075d75a1a6d" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> El Dorado<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> ElDorado_2020_0021<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3524     </div>`)[0];
+                popup_1cfd678be13b769124625e8fb8f59870.setContent(html_9f78eaa0475e401d94f45075d75a1a6d);
+            
+        
+
+        circle_marker_53be4918d3864542beb14eafb3e08b56.bindPopup(popup_1cfd678be13b769124625e8fb8f59870)
+        ;
+
+        
+    
+    
+            circle_marker_53be4918d3864542beb14eafb3e08b56.bindTooltip(
+                `<div>
+                     Missed debris flow: El Dorado
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_864a88cb90d05e878935539930a374dc = L.circleMarker(
+                [34.19954598, -117.2822164],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_2ca0741fcb442c6ba35ebb1e71651a51 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c1dd6ec68863bd47435e602e20765001 = $(`<div id="html_c1dd6ec68863bd47435e602e20765001" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0007<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3514     </div>`)[0];
+                popup_2ca0741fcb442c6ba35ebb1e71651a51.setContent(html_c1dd6ec68863bd47435e602e20765001);
+            
+        
+
+        circle_marker_864a88cb90d05e878935539930a374dc.bindPopup(popup_2ca0741fcb442c6ba35ebb1e71651a51)
+        ;
+
+        
+    
+    
+            circle_marker_864a88cb90d05e878935539930a374dc.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3491134f6e6afb8517ce9adafc2ee0e7 = L.circleMarker(
+                [34.1941941, -117.4448353],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_d29d39479c7fd7fc8b2be3fb22075943 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b9ab1b2aa84e6ff062fbc43507fbb3ae = $(`<div id="html_b9ab1b2aa84e6ff062fbc43507fbb3ae" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0011<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4594     </div>`)[0];
+                popup_d29d39479c7fd7fc8b2be3fb22075943.setContent(html_b9ab1b2aa84e6ff062fbc43507fbb3ae);
+            
+        
+
+        circle_marker_3491134f6e6afb8517ce9adafc2ee0e7.bindPopup(popup_d29d39479c7fd7fc8b2be3fb22075943)
+        ;
+
+        
+    
+    
+            circle_marker_3491134f6e6afb8517ce9adafc2ee0e7.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4456201050c2118258cb74b89e182e81 = L.circleMarker(
+                [34.18750949, -117.1859147],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_23b66f92698b3f55b74ed8071965a266 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_45176719ef7d908001fac37d60572850 = $(`<div id="html_45176719ef7d908001fac37d60572850" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0015<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3136     </div>`)[0];
+                popup_23b66f92698b3f55b74ed8071965a266.setContent(html_45176719ef7d908001fac37d60572850);
+            
+        
+
+        circle_marker_4456201050c2118258cb74b89e182e81.bindPopup(popup_23b66f92698b3f55b74ed8071965a266)
+        ;
+
+        
+    
+    
+            circle_marker_4456201050c2118258cb74b89e182e81.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5a9085a7681cf3f74b601b4efb49d1d9 = L.circleMarker(
+                [34.18411802, -117.2647475],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_3a59b6b1764ea2a1c3d3f34558de728b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c49018fcf84e6a2ed0fba86c4d3d97f8 = $(`<div id="html_c49018fcf84e6a2ed0fba86c4d3d97f8" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0017<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3426     </div>`)[0];
+                popup_3a59b6b1764ea2a1c3d3f34558de728b.setContent(html_c49018fcf84e6a2ed0fba86c4d3d97f8);
+            
+        
+
+        circle_marker_5a9085a7681cf3f74b601b4efb49d1d9.bindPopup(popup_3a59b6b1764ea2a1c3d3f34558de728b)
+        ;
+
+        
+    
+    
+            circle_marker_5a9085a7681cf3f74b601b4efb49d1d9.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8519d6a8fd07117920e208614f486c91 = L.circleMarker(
+                [34.17975128, -117.448449],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_deee90433491a8d710868ee3c3d94fd4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_92773ce973896891f35dedb7e54ea00f = $(`<div id="html_92773ce973896891f35dedb7e54ea00f" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0020<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2301     </div>`)[0];
+                popup_deee90433491a8d710868ee3c3d94fd4.setContent(html_92773ce973896891f35dedb7e54ea00f);
+            
+        
+
+        circle_marker_8519d6a8fd07117920e208614f486c91.bindPopup(popup_deee90433491a8d710868ee3c3d94fd4)
+        ;
+
+        
+    
+    
+            circle_marker_8519d6a8fd07117920e208614f486c91.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_658ea25753ebdbfbb8aca170ec79579f = L.circleMarker(
+                [34.15643991, -117.2382992],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_8ec87ba5b50178b35cad6a34fa441b36 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eab971616d6b6132797ba04d6114d4df = $(`<div id="html_eab971616d6b6132797ba04d6114d4df" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0032<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3600     </div>`)[0];
+                popup_8ec87ba5b50178b35cad6a34fa441b36.setContent(html_eab971616d6b6132797ba04d6114d4df);
+            
+        
+
+        circle_marker_658ea25753ebdbfbb8aca170ec79579f.bindPopup(popup_8ec87ba5b50178b35cad6a34fa441b36)
+        ;
+
+        
+    
+    
+            circle_marker_658ea25753ebdbfbb8aca170ec79579f.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4c8f27fed9ecbd1908d1b399cb587827 = L.circleMarker(
+                [34.13670627, -117.1743608],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_88bc2eedd3af619b7180d670d26d792e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_791fe0e0f64b05a45c41f4d688f9f479 = $(`<div id="html_791fe0e0f64b05a45c41f4d688f9f479" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grand Prix - Old<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> GrandPrix-Old_2003_0033<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2462     </div>`)[0];
+                popup_88bc2eedd3af619b7180d670d26d792e.setContent(html_791fe0e0f64b05a45c41f4d688f9f479);
+            
+        
+
+        circle_marker_4c8f27fed9ecbd1908d1b399cb587827.bindPopup(popup_88bc2eedd3af619b7180d670d26d792e)
+        ;
+
+        
+    
+    
+            circle_marker_4c8f27fed9ecbd1908d1b399cb587827.bindTooltip(
+                `<div>
+                     Missed debris flow: Grand Prix - Old
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c3f996c95317c621dac55c43a05cff62 = L.circleMarker(
+                [39.593441, -107.177952],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_e99539850f99c0f05753cf3f51f08a07 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7222ed5f86ee344a12b90be45d1ed822 = $(`<div id="html_7222ed5f86ee344a12b90be45d1ed822" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0010<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1573     </div>`)[0];
+                popup_e99539850f99c0f05753cf3f51f08a07.setContent(html_7222ed5f86ee344a12b90be45d1ed822);
+            
+        
+
+        circle_marker_c3f996c95317c621dac55c43a05cff62.bindPopup(popup_e99539850f99c0f05753cf3f51f08a07)
+        ;
+
+        
+    
+    
+            circle_marker_c3f996c95317c621dac55c43a05cff62.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34b3462c2efca347dd4a3c002b31f211 = L.circleMarker(
+                [39.566897, -107.272522],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_afc08ce24f2152fb5aa6957e39725484 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85ea71d89b9b00a0808b1dc32987e67e = $(`<div id="html_85ea71d89b9b00a0808b1dc32987e67e" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0404<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2914     </div>`)[0];
+                popup_afc08ce24f2152fb5aa6957e39725484.setContent(html_85ea71d89b9b00a0808b1dc32987e67e);
+            
+        
+
+        circle_marker_34b3462c2efca347dd4a3c002b31f211.bindPopup(popup_afc08ce24f2152fb5aa6957e39725484)
+        ;
+
+        
+    
+    
+            circle_marker_34b3462c2efca347dd4a3c002b31f211.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab530c1da4dbff3522a468d6dfc3ae09 = L.circleMarker(
+                [39.566897, -107.272522],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_2c74506100b0512d4d1cefa6b8819814 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2bf9fe37fdf17176e9005a372beee096 = $(`<div id="html_2bf9fe37fdf17176e9005a372beee096" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0410<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2134     </div>`)[0];
+                popup_2c74506100b0512d4d1cefa6b8819814.setContent(html_2bf9fe37fdf17176e9005a372beee096);
+            
+        
+
+        circle_marker_ab530c1da4dbff3522a468d6dfc3ae09.bindPopup(popup_2c74506100b0512d4d1cefa6b8819814)
+        ;
+
+        
+    
+    
+            circle_marker_ab530c1da4dbff3522a468d6dfc3ae09.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cf21ca4660be579b136ff9f917180c00 = L.circleMarker(
+                [39.56660135, -107.2701978],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_fb5fd634974f436806bf1acbd92c98cb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85f3dbd46047ebc00b0ea2614d88da2d = $(`<div id="html_85f3dbd46047ebc00b0ea2614d88da2d" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0502<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1762     </div>`)[0];
+                popup_fb5fd634974f436806bf1acbd92c98cb.setContent(html_85f3dbd46047ebc00b0ea2614d88da2d);
+            
+        
+
+        circle_marker_cf21ca4660be579b136ff9f917180c00.bindPopup(popup_fb5fd634974f436806bf1acbd92c98cb)
+        ;
+
+        
+    
+    
+            circle_marker_cf21ca4660be579b136ff9f917180c00.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58933f47d421fc35b13dad151ea8a4a3 = L.circleMarker(
+                [39.56660135, -107.2701978],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_15f502ae55010649c05590b2e0b41cb0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a302c186525c63dbb2f5680a7a44b327 = $(`<div id="html_a302c186525c63dbb2f5680a7a44b327" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0508<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1236     </div>`)[0];
+                popup_15f502ae55010649c05590b2e0b41cb0.setContent(html_a302c186525c63dbb2f5680a7a44b327);
+            
+        
+
+        circle_marker_58933f47d421fc35b13dad151ea8a4a3.bindPopup(popup_15f502ae55010649c05590b2e0b41cb0)
+        ;
+
+        
+    
+    
+            circle_marker_58933f47d421fc35b13dad151ea8a4a3.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f808067ac87b27e3c27d1323a2fcaae9 = L.circleMarker(
+                [39.564371, -107.267852],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_bf830000e72dda7dd3c13bc51abc4bf8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8f1a7f825a7a5ba886631d77060cd8b5 = $(`<div id="html_8f1a7f825a7a5ba886631d77060cd8b5" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_0600<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1228     </div>`)[0];
+                popup_bf830000e72dda7dd3c13bc51abc4bf8.setContent(html_8f1a7f825a7a5ba886631d77060cd8b5);
+            
+        
+
+        circle_marker_f808067ac87b27e3c27d1323a2fcaae9.bindPopup(popup_bf830000e72dda7dd3c13bc51abc4bf8)
+        ;
+
+        
+    
+    
+            circle_marker_f808067ac87b27e3c27d1323a2fcaae9.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c43e5cfcd1f42ef398b353e40103cd8 = L.circleMarker(
+                [39.618159, -107.129525],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_d177664cecaa410d8cec5dd9d1e75ebe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ed2c93c6e414025deb2010d4fb1dbe07 = $(`<div id="html_ed2c93c6e414025deb2010d4fb1dbe07" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1191<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.0631     </div>`)[0];
+                popup_d177664cecaa410d8cec5dd9d1e75ebe.setContent(html_ed2c93c6e414025deb2010d4fb1dbe07);
+            
+        
+
+        circle_marker_6c43e5cfcd1f42ef398b353e40103cd8.bindPopup(popup_d177664cecaa410d8cec5dd9d1e75ebe)
+        ;
+
+        
+    
+    
+            circle_marker_6c43e5cfcd1f42ef398b353e40103cd8.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_119d1e5d7232c5277898a6430bf3a6cd = L.circleMarker(
+                [39.613418, -107.142133],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_7e7d8a2e5e27d27cf1a7eea2efc9396b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a09c0c840647514e93796216a7dad61b = $(`<div id="html_a09c0c840647514e93796216a7dad61b" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1481<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2670     </div>`)[0];
+                popup_7e7d8a2e5e27d27cf1a7eea2efc9396b.setContent(html_a09c0c840647514e93796216a7dad61b);
+            
+        
+
+        circle_marker_119d1e5d7232c5277898a6430bf3a6cd.bindPopup(popup_7e7d8a2e5e27d27cf1a7eea2efc9396b)
+        ;
+
+        
+    
+    
+            circle_marker_119d1e5d7232c5277898a6430bf3a6cd.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e8b2d550d96d29a3eaf57cf08a69598c = L.circleMarker(
+                [39.610562, -107.146508],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_15d46558d952616fa16e8e6c4e8109ae = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7ac08e5fe5123445f2b09508f5622327 = $(`<div id="html_7ac08e5fe5123445f2b09508f5622327" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1578<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2471     </div>`)[0];
+                popup_15d46558d952616fa16e8e6c4e8109ae.setContent(html_7ac08e5fe5123445f2b09508f5622327);
+            
+        
+
+        circle_marker_e8b2d550d96d29a3eaf57cf08a69598c.bindPopup(popup_15d46558d952616fa16e8e6c4e8109ae)
+        ;
+
+        
+    
+    
+            circle_marker_e8b2d550d96d29a3eaf57cf08a69598c.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ac435bd20ff3c3ba089fd1b68fb01007 = L.circleMarker(
+                [39.6085, -107.1543],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_a849a7159053741e20cb65544da7513c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0c7f76457097b3aa282d122682f6d862 = $(`<div id="html_0c7f76457097b3aa282d122682f6d862" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1676<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1587     </div>`)[0];
+                popup_a849a7159053741e20cb65544da7513c.setContent(html_0c7f76457097b3aa282d122682f6d862);
+            
+        
+
+        circle_marker_ac435bd20ff3c3ba089fd1b68fb01007.bindPopup(popup_a849a7159053741e20cb65544da7513c)
+        ;
+
+        
+    
+    
+            circle_marker_ac435bd20ff3c3ba089fd1b68fb01007.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_875203713c6c1fa74760e0d2a65c4470 = L.circleMarker(
+                [39.601577, -107.16548],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_b9a4c4f7f9fe7b07b7b9b40a466de4a7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8106621416d4964663d45013f545471b = $(`<div id="html_8106621416d4964663d45013f545471b" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1765<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1527     </div>`)[0];
+                popup_b9a4c4f7f9fe7b07b7b9b40a466de4a7.setContent(html_8106621416d4964663d45013f545471b);
+            
+        
+
+        circle_marker_875203713c6c1fa74760e0d2a65c4470.bindPopup(popup_b9a4c4f7f9fe7b07b7b9b40a466de4a7)
+        ;
+
+        
+    
+    
+            circle_marker_875203713c6c1fa74760e0d2a65c4470.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dc679d34bd31409982f973c664c87482 = L.circleMarker(
+                [39.603097, -107.159339],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_ba5d95dcff61f26b1c8fc2e0af1d18b5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_374e71605df752b284bb4de1e64337c4 = $(`<div id="html_374e71605df752b284bb4de1e64337c4" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1777<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.1592     </div>`)[0];
+                popup_ba5d95dcff61f26b1c8fc2e0af1d18b5.setContent(html_374e71605df752b284bb4de1e64337c4);
+            
+        
+
+        circle_marker_dc679d34bd31409982f973c664c87482.bindPopup(popup_ba5d95dcff61f26b1c8fc2e0af1d18b5)
+        ;
+
+        
+    
+    
+            circle_marker_dc679d34bd31409982f973c664c87482.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_880c9fb17c5171c1a9aa0649e80822b3 = L.circleMarker(
+                [39.599788, -107.171554],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_35d21ab6722f0ab62ba6cffa7b3e98ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fb36cb3e4e9ad7401956b9269f21867b = $(`<div id="html_fb36cb3e4e9ad7401956b9269f21867b" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_1972<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2652     </div>`)[0];
+                popup_35d21ab6722f0ab62ba6cffa7b3e98ce.setContent(html_fb36cb3e4e9ad7401956b9269f21867b);
+            
+        
+
+        circle_marker_880c9fb17c5171c1a9aa0649e80822b3.bindPopup(popup_35d21ab6722f0ab62ba6cffa7b3e98ce)
+        ;
+
+        
+    
+    
+            circle_marker_880c9fb17c5171c1a9aa0649e80822b3.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1345f1ca963a827b4b6ab3ff09d05400 = L.circleMarker(
+                [39.600911, -107.168299],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_e370491623c8c89ee66873f2742b1202 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a621f37c7ca739a0a6d5900a577b6163 = $(`<div id="html_a621f37c7ca739a0a6d5900a577b6163" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_2070<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.2683     </div>`)[0];
+                popup_e370491623c8c89ee66873f2742b1202.setContent(html_a621f37c7ca739a0a6d5900a577b6163);
+            
+        
+
+        circle_marker_1345f1ca963a827b4b6ab3ff09d05400.bindPopup(popup_e370491623c8c89ee66873f2742b1202)
+        ;
+
+        
+    
+    
+            circle_marker_1345f1ca963a827b4b6ab3ff09d05400.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b5f4754c4770ec27ce37d7670e58130 = L.circleMarker(
+                [39.608744, -107.153603],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_509f9a8f0c9828be42bd76d6c6d874ca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7ea9b7bbd8b95090db870dd5899f4e67 = $(`<div id="html_7ea9b7bbd8b95090db870dd5899f4e67" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_2185<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3031     </div>`)[0];
+                popup_509f9a8f0c9828be42bd76d6c6d874ca.setContent(html_7ea9b7bbd8b95090db870dd5899f4e67);
+            
+        
+
+        circle_marker_9b5f4754c4770ec27ce37d7670e58130.bindPopup(popup_509f9a8f0c9828be42bd76d6c6d874ca)
+        ;
+
+        
+    
+    
+            circle_marker_9b5f4754c4770ec27ce37d7670e58130.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9a3c4c6b3f75602caa61e8630a2d702 = L.circleMarker(
+                [39.609181, -107.152192],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_9816c4ff8f9fad1b26f8a03ae3639b3a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2fa5e91258d07fb3af92746bdad79869 = $(`<div id="html_2fa5e91258d07fb3af92746bdad79869" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> Grizzly Creek<br>     <b>State:</b> CO<br>     <b>Observation ID:</b> GrizzlyCreek_2020_2186<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.3031     </div>`)[0];
+                popup_9816c4ff8f9fad1b26f8a03ae3639b3a.setContent(html_2fa5e91258d07fb3af92746bdad79869);
+            
+        
+
+        circle_marker_d9a3c4c6b3f75602caa61e8630a2d702.bindPopup(popup_9816c4ff8f9fad1b26f8a03ae3639b3a)
+        ;
+
+        
+    
+    
+            circle_marker_d9a3c4c6b3f75602caa61e8630a2d702.bindTooltip(
+                `<div>
+                     Missed debris flow: Grizzly Creek
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d2e6bd13ba71624804a69e391d0b71f8 = L.circleMarker(
+                [36.5817, -121.63517],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_c94dfe27feb5cc188b8bd28d068dc8f2);
+        
+    
+        var popup_716ab060af7823ea65011d6aa6b85bf4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_17cc80c4dd39a54e2cdb250ec4c8fd28 = $(`<div id="html_17cc80c4dd39a54e2cdb250ec4c8fd28" style="width: 100.0%; height: 100.0%;">     <b>Wildfire:</b> River<br>     <b>State:</b> CA<br>     <b>Observation ID:</b> River_2020_0005<br>     <b>Actual Response:</b> 1<br>     <b>Predicted Response:</b> 0<br>     <b>Probability:</b> 0.4662     </div>`)[0];
+                popup_716ab060af7823ea65011d6aa6b85bf4.setContent(html_17cc80c4dd39a54e2cdb250ec4c8fd28);
+            
+        
+
+        circle_marker_d2e6bd13ba71624804a69e391d0b71f8.bindPopup(popup_716ab060af7823ea65011d6aa6b85bf4)
+        ;
+
+        
+    
+    
+            circle_marker_d2e6bd13ba71624804a69e391d0b71f8.bindTooltip(
+                `<div>
+                     Missed debris flow: River
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_c94dfe27feb5cc188b8bd28d068dc8f2.fitBounds(
+                [[33.729686, -121.63517], [40.7401849, -105.4180111]],
+                {}
+            );
+        
+</script>
+</html>
